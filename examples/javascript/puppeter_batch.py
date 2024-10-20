@@ -32,11 +32,12 @@ async def scrape_website(browser, url):
     print(f"Page Title: {page_title}")
 
     page_content = await page.evaluate('() => document.body.innerText')
-
-    with open('scraped_content.txt', 'a', encoding='utf-8') as f:
-        f.write(f"URL: {url}\n")
-        f.write(f"Title: {page_title}\n")
-        f.write(f"Content:\n{page_content}\n")
-        f.write("="*80 + "\n")
-
     await page.close()
+
+    # Return the scraped content instead
+    return {
+        'url': url,
+        'title': page_title,
+        'content': page_content
+    }
+
